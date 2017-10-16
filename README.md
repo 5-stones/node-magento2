@@ -37,6 +37,21 @@ Helpers add a Javascript style API to generate the URLs.
 
 const RequestHelper = require('node-magento2').RequestHelper;
 const helper = new RequestHelper();
+
+// build search criteria query object from arrays
+var params = helper.buildSearchFilterGroups([
+    [ ['name', 'eq', 'foo'] ],
+    [ ['sku', 'eq', 'bar'] ],
+    [
+      ['deleted_at', 'gt', new Date()],
+      ['deleted_at', 'null']
+    ]
+]);
+
+this.client.get('/products', params)
+  .then(function (response) {
+    res.send(response);
+  });
 ```
 
 ## Auth Helper
